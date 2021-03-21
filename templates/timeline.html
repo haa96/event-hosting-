@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}
+  {% if request.endpoint == 'public_timeline' %}
+    Upcoming Events
+  {% else %}
+    My Events
+
+  {% endif %}
+{% endblock %}
+{% block body %}
+     
+  <h2>{{ self.title() }}</h2>
+    {% if request.endpoint != 'public_timeline' %}
+    <small><a href="{{ url_for('create_event')}} ">Create Event</a></small><br>
+    <small><a href="{{ url_for('cancel_event')}} ">Cancel Event</a></small><br>
+    {%endif%}
+
+<ul class="event">
+  {% for event in events %}
+      <div class="eventbox">
+        <strong><p> {% if g.user.username == event.host.username %} Host: You</p></strong>{%endif%}
+              
+        <strong>
+        {% if event.host.username != g.user.username %} Host: {{ event.host.username }}&nbsp;&nbsp;
+          {% if g.user  %}
+             {% if attending %}
+               <small>[You're on the attending list!]</small>
+               {%else%} <small><a class="attend" href="{{ url_for('attend_event', title=event.title) }}"> [You're not yet attending (Attend event)] </a></small>
+              {%endif%}
+          {%endif%}
+
+        {% endif %} </p></strong>
+      
+        <strong><p>Title: {{ event.title }}</p></strong>
+        <small><p>Description: {{event.description}}</p></small>
+        <small><p>Start Date & Time: {{ event.start_datentime }}</p></small>
+        <small><p>End Date & Time: {{ event.start_datentime }}</p></small>
+        {% if event.host.username == g.user.username %} <small>  <a  href="/cancel_event">(Cancel Event)</a></small>{%endif%}
+      
+      </div>
+    {% else %}
+      <li><em>Sorry! No Events</em>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+

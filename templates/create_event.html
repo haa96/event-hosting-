@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Create Event{% endblock %}
+{% block body %}
+  <h2>Create Event</h2>
+ {% if error %}<div class="error"><strong>Error:</strong> {{ error }}</div>{% endif %}
+  <form method="post">
+    <dl>
+      <dt>Title:
+      <dd><input type="text" size="30" name="title">
+      <dt>Description:
+      <dd><input type="text" size="30" name="description">
+      <dt>Start Date and Time:
+      <dd><input type="datetime-local" name="start_datentime">  
+      <dt>End Date and Time:
+      <dd><input type="datetime-local" name="end_datentime"> <br>
+      <dd><input type="submit" value="Create"></div>
+    </dl>
+    
+  </form>
+{% endblock %}

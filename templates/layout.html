@@ -1,0 +1,29 @@
+<!doctype html>
+<title>{% block title %}Welcome{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<div class="bg">
+  <h1>The Event Hosting Web</h1>
+  <div class="nav">
+  {% if g.user %}
+    <a href="{{ url_for('root') }}">My events</a>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+    <a href="{{ url_for('public_timeline') }}">Homepage</a>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |
+    <a href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a>
+  {% else %}
+    <a href="{{ url_for('public_timeline') }}">Homepage</a>        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+    <a href="{{ url_for('register') }}">Register</a>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |
+    <a href="{{ url_for('login') }}">Login</a>
+  {% endif %}
+  </div>
+  {% with flashes = get_flashed_messages() %}
+    {% if flashes %}
+      <ul class="flashes">
+      {% for message in flashes %}
+        <li>{{ message }}
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <div class="body">
+  {% block body %}{% endblock %}
+  </div>
+</div>

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Cancel Event{% endblock %}
+{% block body %}
+  <h2>Cancel Event</h2>
+ {% if error %}<div class="error"><strong>Error:</strong> {{ error }}</div>{% endif %}
+  <form  method="post">
+    <dl>
+      <small><p>Please enter the title, and starting date of the event you wish to cancel</p></small>
+      <dt>Title:
+      <dd><input type="text" size="20" name="title">
+      <dt> Start Date and Time:
+      <dd><input type="datetime-local" name="start_datentime">
+      <dd><input type="submit" value="Delete Event"></div> 
+    </dl>
+  </form>
+{% endblock %}
+
+
+
